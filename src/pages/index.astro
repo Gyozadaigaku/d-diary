@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { newtClient } from '../lib/newt'
+import type { Article } from '../lib/newt'
+
+const { items: articles } = await newtClient.getContents<Article>({
+  appUid: 'blog',
+  modelUid: 'article',
+  query: {
+    select: ['title', 'slug', 'body'],
+  },
+})
+---
+
+<Layout title="Dear(Design)Diary" description="record daily events">
+	<main>
+		<h1>Dear(Design)<span class="text-gradient">Diary</span></h1>
+			<ul>
+      {
+        articles.map((article) => {
+          return (
+            <li>
+              <a href={`/articles/${article.slug}`}>{article.title}</a>
+            </li>
+          )
+        })
+      }
+    </ul>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+</style>

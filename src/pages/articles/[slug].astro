@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { newtClient } from '../../lib/newt'
+import type { Article } from '../../lib/newt'
+
+export const getStaticPaths = async () => {
+  const { items: articles } = await newtClient.getContents<Article>({
+    appUid: 'blog',
+    modelUid: 'article',
+    query: {
+      select: ['title', 'slug', 'body'],
+    },
+  })
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }))
+}
+
+const { article } = Astro.props
+---
+
+<Layout title={article.title} description="投稿詳細ページです">
+  <main>
+    <h2>{article.title}</h2>
+    <article set:html={article.body} />
+  </main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+</style>
