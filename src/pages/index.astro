@@ -3,12 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import { newtClient } from '../lib/newt'
 import type { Article } from '../lib/newt'
+import dayjs from "dayjs";
+import 'dayjs/locale/ja';
+dayjs.locale('ja');
 
 const { items: articles } = await newtClient.getContents<Article>({
   appUid: 'blog',
   modelUid: 'article',
   query: {
-    select: ['title', 'slug', 'body'],
+    select: ['title','slug', 'createdAt', 'body'],
   },
 })
 ---
@@ -16,12 +19,17 @@ const { items: articles } = await newtClient.getContents<Article>({
 <Layout title="Dear(Design)Diary" description="record daily events">
 	<main>
 		<h1>Dear(Design)<span class="text-gradient">Diary</span></h1>
-			<ul>
+			<ul class="flex flex-col gap-y-4">
       {
         articles.map((article) => {
           return (
-            <li>
-              <a href={`/articles/${article.slug}`}>{article.title}</a>
+            <li class="border-b border-gray-600 pb-4">
+              <a href={`/articles/${article.slug}`}>
+								<div>
+									<h2 class="text-xl">{article.title}</h2>
+									<time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
+								</div>
+							</a>
             </li>
           )
         })

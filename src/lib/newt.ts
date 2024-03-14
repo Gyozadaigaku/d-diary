@@ -4,6 +4,7 @@ export interface Article {
   title: string;
   slug: string;
   body: string;
+  createdAt: string;
 }
 
 export const newtClient = createClient({
