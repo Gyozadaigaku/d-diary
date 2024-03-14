@@ -17,37 +17,30 @@ const { items: articles } = await newtClient.getContents<Article>({
 ---
 
 <Layout title="Dear(Design)Diary" description="record daily events">
-	<main>
+	<main class="pt-20 m-auto max-w-screen-md w-[calc(100%-2rem)] text-white">
 		<h1>Dear(Design)<span class="text-gradient">Diary</span></h1>
-			<ul class="flex flex-col gap-y-4">
-      {
-        articles.map((article) => {
-          return (
-            <li class="border-b border-gray-600 pb-4">
-              <a href={`/articles/${article.slug}`}>
-								<div>
-									<h2 class="text-xl">{article.title}</h2>
-									<time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
-								</div>
-							</a>
-            </li>
-          )
-        })
-      }
-    </ul>
+		<section class="pt-6">
+				<ul class="flex flex-col gap-y-4">
+				{
+					articles.map((article) => {
+						return (
+							<li class="border-b border-gray-600 pb-4">
+								<a href={`/articles/${article.slug}`}>
+									<div class="flex flex-col gap-1.5">
+										<h2 class="text-xl">{article.title}</h2>
+										<time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
+									</div>
+								</a>
+							</li>
+						)
+					})
+				}
+			</ul>
+		</section>
 	</main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
 	h1 {
 		font-size: 4rem;
 		font-weight: 700;

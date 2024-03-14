@@ -21,27 +21,8 @@ const { article } = Astro.props
 ---
 
 <Layout title={article.title} description="投稿詳細ページです">
-  <main>
+  <main class="pt-20 m-auto max-w-screen-md w-[calc(100%-2rem)] text-white">
     <h2>{article.title}</h2>
     <article set:html={article.body} />
   </main>
 </Layout>
-
-<style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-</style>
