@@ -5,13 +5,16 @@ import hljs from "highlight.js";
 import "highlight.js/styles/tokyo-night-dark.css";
 import { newtClient } from '../../lib/newt'
 import type { Article } from '../../lib/newt'
+import dayjs from "dayjs";
+import 'dayjs/locale/ja';
+dayjs.locale('ja');
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async () =>{
   const { items: articles } = await newtClient.getContents<Article>({
     appUid: 'blog',
     modelUid: 'article',
     query: {
-      select: ['title', 'slug', 'body'],
+    select: ['title', 'slug', 'createdAt', 'body'],
     },
   })
   return articles.map((article) => ({
@@ -32,8 +35,11 @@ article.body = $.html();
 ---
 
 <Layout title={article.title} description="投稿詳細ページです">
-  <main class="pt-20 m-auto max-w-screen-md w-[calc(100%-2rem)] text-white">
-    <h2>{article.title}</h2>
-    <article set:html={article.body} />
+  <main class="pt-20 m-auto max-w-2xl w-[calc(100%-2rem)] text-white">
+    <h2 class="text-xl">{article.title}</h2>
+    <article set:html={article.body} class="pt-2 leading-relaxed" />
+    <div class="text-right pt-2">
+      <time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
+    </div>
   </main>
 </Layout>
