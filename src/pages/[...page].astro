@@ -26,7 +26,7 @@ export async function getStaticPaths({paginate}: GetStaticPathsOptions) {
 			select: ['title', 'slug', 'createdAt', 'body'],
 		},
 	})
-	return paginate(articles, {pageSize: 2})
+	return paginate(articles, {pageSize: 10})
 }
 
 const { page } = Astro.props as Props;
