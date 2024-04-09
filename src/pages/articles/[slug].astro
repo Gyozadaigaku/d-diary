@@ -35,7 +35,7 @@ article.body = $.html();
 ---
 
 <Layout title={article.title} description="投稿詳細ページです">
-  <main class="pt-20 m-auto max-w-2xl w-[calc(100%-2rem)] text-white">
+  <main class="py-20 m-auto max-w-2xl w-[calc(100%-2rem)] text-white">
     <h2 class="text-xl">{article.title}</h2>
     <article set:html={article.body} class="pt-2 leading-relaxed" />
     <div class="text-right pt-2">
