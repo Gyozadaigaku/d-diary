@@ -5,8 +5,8 @@ import Pagination from '../components/Pagination.astro';
 import { newtClient } from '../lib/newt'
 import type { Article } from '../lib/newt'
 import dayjs from "dayjs";
-import 'dayjs/locale/ja';
-dayjs.locale('ja');
+import 'dayjs/locale/en';
+dayjs.locale('en');
 
 type Props = {
 	page: {
@@ -44,7 +44,7 @@ const { page } = Astro.props as Props;
 								<a href={`/articles/${article.slug}`}>
 									<div class="flex flex-col gap-1.5">
 										<h2 class="text-xl">{article.title}</h2>
-										<time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
+										<time class="text-sm text-gray-400">{dayjs(article.createdAt).format('DD MMM, YYYY')}</time>
 									</div>
 								</a>
 							</li>

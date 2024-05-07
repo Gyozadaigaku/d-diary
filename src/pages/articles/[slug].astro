@@ -6,8 +6,8 @@ import "highlight.js/styles/tokyo-night-dark.css";
 import { newtClient } from '../../lib/newt'
 import type { Article } from '../../lib/newt'
 import dayjs from "dayjs";
-import 'dayjs/locale/ja';
-dayjs.locale('ja');
+import 'dayjs/locale/en';
+dayjs.locale('en');
 
 export const getStaticPaths = async () =>{
   const { items: articles } = await newtClient.getContents<Article>({
@@ -39,7 +39,7 @@ article.body = $.html();
     <h2 class="text-xl">{article.title}</h2>
     <article set:html={article.body} class="pt-2 leading-relaxed" />
     <div class="text-right pt-2">
-      <time class="text-sm text-gray-400">{dayjs(article.createdAt).format('YYYY年MM月DD日(ddd)')}</time>
+      <time class="text-sm text-gray-400">{dayjs(article.createdAt).format('DD MMM, YYYY')}</time>
     </div>
   </main>
 </Layout>
